@@ -233,8 +233,36 @@ int main(int argc, char *argv[]) {
     char *input_path = "\0";
     char *output_path = "\0";
 
-    const char* help_text = "Usage: \n--min-freq (Minimum Frequency: Hz)\n--max-freq (Maximum Frequency: Hz)\n--duration (Duration: seconds)\n--sample_rate (Sample Rate: Hz)\n--gamma (Gamma: float)\n--window_size (Window Size: int (power of 2))\n--window_overlap (Window Overlap: int (power of 2))\n--input (Input Image: '.png', '.jpg', '.bmp')\n--output (Output Wave File: '.wav')\n";
-
+    const char *help_text = 
+    "--min-freq (Minimum Frequency: Hz)\n"
+    "The frequency at which the image will start drawing.\n"
+    "\n"
+    "--max-freq (Maximum Frequency: Hz)\n"
+    "The frequency at which the image will finish drawing.\n"
+    "\n"
+    "--duration (Duration: seconds)\n"
+    "The duration of the resulting audio file.\n"
+    "\n"
+    "--sample-rate (Sample Rate: Hz)\n"
+    "The sample rate of the resulting audio file.\n"
+    "\n"
+    "--gamma (Gamma: float)\n"
+    "Change the contrast of the image.\n"
+    "\n"
+    "--window_size (Window Size: int (power of 2))\n"
+    "Size of the FFT window.\n"
+    "Bigger window will increase resolution in the frequency domain (vertical) but decrease resolution in the time domain (horizontal)\n"
+    "\n"
+    "--window_overlap (Window Overlap: int (power of 2))\n"
+    "How many windows will overlap.\n"
+    "More overlaps will result in more high quality spectrum (less spectral leakage) but it will also take more time to process.\n"
+    "\n"
+    "--input (Input Image: '.png', '.jpg', '.bmp')\n"
+    "Path to the image file (remember to add the extension)\n"
+    "\n"
+    "--output (Output Wave File: '.wav')\n"
+    "Path to the output file (remember to add the extension)\n";
+    
     for (int arg = 1; arg < argc; arg++) {
         if (!strcmp(argv[arg], "--min-freq")) {
             min_freq = (float) atof(argv[++arg]);
