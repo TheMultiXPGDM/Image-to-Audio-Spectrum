@@ -225,24 +225,24 @@ struct whiteNoise {
 int main(int argc, char *argv[]) {
     int window_size = 512;
     int window_overlap = 16;
-    float min_freq = 0.0f;
-    float max_freq = 22050.0f;
-    double duration = 3.0;
     int sample_rate = 44100;
+    float min_freq = 0.0f;
+    float max_freq = (float) sample_rate * 0.5f; // Nyquist
+    double duration = 3.0;
     float gamma = 2.2f;
     char *input_path = "\0";
     char *output_path = "\0";
 
-    const char* help_text = "Usage: [--min_freq min_freq] [--max_freq max_freq] [--duration duration] [--sample_rate sample_rate] [--gamma gamma] [--window_size window_size] [--window_overlap window_overlap] [--input input_path] [--output output_path]\n";
+    const char* help_text = "Usage: \n--min-freq (Minimum Frequency: Hz)\n--max-freq (Maximum Frequency: Hz)\n--duration (Duration: seconds)\n--sample_rate (Sample Rate: Hz)\n--gamma (Gamma: float)\n--window_size (Window Size: int (power of 2))\n--window_overlap (Window Overlap: int (power of 2))\n--input (Input Image: '.png', '.jpg', '.bmp')\n--output (Output Wave File: '.wav')\n";
 
     for (int arg = 1; arg < argc; arg++) {
-        if (!strcmp(argv[arg], "--min_freq")) {
+        if (!strcmp(argv[arg], "--min-freq")) {
             min_freq = (float) atof(argv[++arg]);
-        } else if (!strcmp(argv[arg], "--max_freq")) {
+        } else if (!strcmp(argv[arg], "--max-freq")) {
             max_freq = (float) atof(argv[++arg]);
         } else if (!strcmp(argv[arg], "--duration")) {
             duration = atof(argv[++arg]);
-        } else if (!strcmp(argv[arg], "--sample_rate")) {
+        } else if (!strcmp(argv[arg], "--sample-rate")) {
             sample_rate = (int) atoi(argv[++arg]);
         } else if (!strcmp(argv[arg], "--gamma")) {
             gamma = (float) atof(argv[++arg]);
@@ -250,9 +250,9 @@ int main(int argc, char *argv[]) {
             input_path = argv[++arg];
         } else if (!strcmp(argv[arg], "--output")) {
             output_path = argv[++arg];
-        } else if (!strcmp(argv[arg], "--window_size")) {
+        } else if (!strcmp(argv[arg], "--window-size")) {
             window_size = forceExp2int((int) atoi(argv[++arg]));
-        } else if (!strcmp(argv[arg], "--window_overlap")) {
+        } else if (!strcmp(argv[arg], "--window-overlap")) {
             window_overlap = forceExp2int((int) atoi(argv[++arg]));
         } else if (!strcmp(argv[arg], "--help")) {
             std::cout << help_text << std::endl;
